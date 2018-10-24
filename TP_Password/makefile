@@ -1,0 +1,17 @@
+CC = g++
+CFLAGS = -Wall -g
+FILES = Grid
+
+all: $(FILES)
+
+%: %.o
+	$(CC) $(CFLAGS) $< -o $?
+	rm -rf *.o
+
+%.c: %.o
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -rf $(FILES)
+
+.PHONY: all clean
