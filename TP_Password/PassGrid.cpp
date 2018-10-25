@@ -3,44 +3,31 @@
 
 class PassGrid {
 private:
-  char** arr;
-  int line;
-  int col;
+  char* arr;
+  int size;
 
 public:
   PassGrid ();
 
-  PassGrid (int i)
+  virtual ~PassGrid() //Destructeur de PassGrid
   {
-    line = i;
-    col = line;
-    arr = (char**) malloc(line * col * sizeof(char));
-    int j = 0;
-    while (j < line)
-    {
-      int k = 0;
-      while (k < col)
-      {
-        arr[j][k] = (char)(rand() % 61 + 33); //On cast le code ascii en char
-        k++;
-      }
-      j++;
-    }
+    delete arr;
   }
 
-  PassGrid (int a, int b)
+  PassGrid (int i)
   {
-    line = a;
-    col = b;
-    arr = (char**) malloc(line * col * sizeof(char));
+    size = i;
+    arr = (char*) malloc(size * size * sizeof(char));
     int j = 0;
-    while (j < line)
+    int l = 0;
+    while (j < size)
     {
       int k = 0;
-      while (k < col)
+      while (k < size)
       {
-        arr[j][k] = (char)(rand() % 61 + 33);
+        arr[l] = (char)(rand() % 61 + 33); //On cast le code ascii en char
         k++;
+        l++;
       }
       j++;
     }
@@ -48,14 +35,16 @@ public:
 
   void print()
   {
+    int i = 0;
     int j = 0;
-    while(j < line)
+    while(j < size)
     {
       int k = 0;
-      while(k < col)
+      while(k < size)
       {
-        std::cout << arr[j][k] << " ";
+        std::cout << arr[i] << " ";
         k++;
+        i++;
       }
       std::cout << std::endl;
       j++;
@@ -65,13 +54,15 @@ public:
   void reset()
   {
     int j = 0;
-    while (j < line)
+    int i = 0;
+    while (j < size)
     {
       int k = 0;
-      while (k < col)
+      while (k < size)
       {
-        arr[j][k] = (char)(rand() % 61 + 33);
+        arr[i] = (char)(rand() % 61 + 33);
         k++;
+        i++;
       }
       j++;
     }
@@ -82,17 +73,14 @@ public:
 
 int main()
 {
-  int m = 0;
   int n = 0;
   srand(time(NULL));
-  std::cout << "Combien de lignes possede la grille? ";
+  std::cout << "Quelle est la taille de la grille? ";
   std::cin >> n;
-  std::cout << "Combien de colonnes possede la grille? ";
-  std::cin >> m;
-  PassGrid g(n, m);
+  PassGrid g(n);
   g.print();
   g.reset();
   std::cout << std::endl;
-  g.print();
+  g.print();^
   return 0;
 }
