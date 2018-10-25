@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g
-FILES = Grid
+FILES = PassGrid
 
 all: $(FILES)
 
